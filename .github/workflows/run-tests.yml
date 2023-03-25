@@ -1,4 +1,4 @@
-name: Check formatting and coding standards
+name: Run Tests
 on: 
   push:
     branches:
@@ -13,4 +13,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run dotnet format
-        run: dotnet format --verify-no-changes
+        run: dotnet test
