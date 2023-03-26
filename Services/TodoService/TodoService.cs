@@ -7,12 +7,19 @@ public class TodoService : ITodoService
         todo,
         new Todo(){Id = 1, Title = "test todo"}
     };
-
-    public async Task<ServiceResponse<Todo>> CreateTodo(Todo todo)
+    private readonly IMapper mapper;
+    public TodoService(IMapper mapper)
     {
-        todos.Add(todo);
-        var serviceResponse = new ServiceResponse<Todo>();
-        serviceResponse.Data = todo;
+        this.mapper = mapper;
+    }
+
+    public async Task<ServiceResponse<GetTodoResponse>> CreateTodo(CreateTodoRequest todoRequest)
+    {
+
+        Todo mappedTodo = mapper.Map<Todo>(todoRequest);
+        todos.Add(mappedTodo);
+        var serviceResponse = new ServiceResponse<GetTodoResponse>();
+        serviceResponse.Data = mapper.Map<GetTodoResponse>(mappedTodo);
         return serviceResponse;
     }
 
@@ -28,18 +35,18 @@ public class TodoService : ITodoService
         todos.Remove(todoToDelete);
     }
 
-    public async Task<ServiceResponse<List<Todo>>> GetAllTodos()
+    public async Task<ServiceResponse<List<GetTodoResponse>>> GetAllTodos()
     {
-        var serviceResponse = new ServiceResponse<List<Todo>>();
-        serviceResponse.Data = todos;
+        var serviceResponse = new ServiceResponse<List<GetTodoResponse>>();
+        serviceResponse.Data = todos.Select(mapper.Map<GetTodoResponse>).ToList();
         return serviceResponse;
     }
 
-    public async Task<ServiceResponse<Todo>> GetTodo(int todoId)
+    public async Task<ServiceResponse<GetTodoResponse>> GetTodo(int todoId)
     {
-        var serviceResponse = new ServiceResponse<Todo>();
+        var serviceResponse = new ServiceResponse<GetTodoResponse>();
         Todo todo = todos.FirstOrDefault(t => t.Id == todoId)!;
-        serviceResponse.Data = todo;
+        serviceResponse.Data = mapper.Map<GetTodoResponse>(todo);
         if (todo is null)
         {
             serviceResponse.Successful = false;

@@ -1,3 +1,5 @@
+global using AutoMapper;
+global using dotnet_angular_starter.Dtos.Todo;
 global using dotnet_angular_starter.Models;
 global using dotnet_angular_starter.Services.TodoService;
 using dotnet_angular_starter.Utils;
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ITodoService, TodoService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(o =>
