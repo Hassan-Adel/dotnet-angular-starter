@@ -16,5 +16,5 @@ public class LowerCaseDocumentFilter : IDocumentFilter
         }
     }
 
-    private static string LowercaseEverythingButParameters(string key) => string.Join('/', key.Split('/').Select(x => x.Contains("{") ? x : x.ToLower()));
+    private static string LowercaseEverythingButParameters(string key) => string.Join('/', key.Split('/').Select(x => x.Contains('{') ? x : x.ToLower()));
 }

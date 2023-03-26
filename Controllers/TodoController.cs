@@ -7,10 +7,27 @@ namespace dotnet_angular_starter.Controllers;
 public class TodoController : ControllerBase
 {
     private static readonly Todo todo = new Todo();
+    private static readonly List<Todo> todos = new List<Todo>{
+        todo,
+        new Todo(){Id = 1, Title = "test todo"}
+    };
 
-    [HttpGet]
-    public ActionResult<Todo> Get()
+    [HttpGet("Get/{id}")]
+    public ActionResult<Todo> GetSingle(int id)
     {
-        return Ok(todo);
+        return Ok(todos.FirstOrDefault(t => t.Id == id));
+    }
+    
+    [HttpGet("Get")]
+    public ActionResult<List<Todo>> Get()
+    {
+        return Ok(todos);
+    }
+
+    [HttpPost]
+    public ActionResult<List<Todo>> CreateTodo(Todo todo)
+    {
+        todos.Add(todo);
+        return Ok(todos);
     }
 }
