@@ -17,7 +17,7 @@ public class TodoController : ControllerBase
     {
         return Ok(todoService.GetTodo(id));
     }
-    
+
     [HttpGet("Get")]
     public ActionResult<List<Todo>> Get()
     {

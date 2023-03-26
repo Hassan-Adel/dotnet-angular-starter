@@ -1,5 +1,5 @@
-global using dotnet_angular_starter.Services.TodoService;
 global using dotnet_angular_starter.Models;
+global using dotnet_angular_starter.Services.TodoService;
 using dotnet_angular_starter.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
