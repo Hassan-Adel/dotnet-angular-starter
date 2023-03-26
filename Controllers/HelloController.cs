@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_angular_starter.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class HelloController : ControllerBase
 {
 
@@ -18,7 +18,6 @@ public class HelloController : ControllerBase
     {
         _logger = logger;
     }
-
 
     [HttpGet]
     public IEnumerable<string> Get()
