@@ -55,4 +55,30 @@ public class TodoService : ITodoService
 
         return serviceResponse;
     }
+
+    public async Task<ServiceResponse<GetTodoResponse>> UpdateTodo(UpdateTodoRequest updatedTodo)
+    {
+        var serviceResponse = new ServiceResponse<GetTodoResponse>();
+        try
+        {
+            Todo todo = todos.FirstOrDefault(t => t.Id == updatedTodo.Id)!;
+
+            if (todo is null)
+            {
+                throw new Exception($"Todo with Id '{updatedTodo.Id}' is not found!");
+            }
+
+            todo.Title = updatedTodo.Title;
+            todo.Completed = updatedTodo.Completed;
+            todo.Type = updatedTodo.Type;
+            var returnTodo = mapper.Map<GetTodoResponse>(todo);
+            serviceResponse.Data = returnTodo;
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Successful = false;
+            serviceResponse.Message = ex.Message;
+        }
+        return serviceResponse;
+    }
 }

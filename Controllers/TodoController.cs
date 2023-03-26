@@ -29,4 +29,16 @@ public class TodoController : ControllerBase
     {
         return Ok(await todoService.CreateTodo(todo).ConfigureAwait(false));
     }
+
+    [HttpPut]
+    public async Task<ActionResult<ServiceResponse<List<GetTodoResponse>>>> UpdateTodo(UpdateTodoRequest todo)
+    {
+        var response = await todoService.UpdateTodo(todo).ConfigureAwait(false);
+        if (response.Data is null)
+        {
+            return NotFound(response);
+        }
+
+        return Ok(response);
+    }
 }
