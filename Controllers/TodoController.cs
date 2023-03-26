@@ -1,16 +1,18 @@
+using Lombok.NET;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_angular_starter.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TodoController : ControllerBase
+[RequiredArgsConstructor]
+public partial class TodoController : ControllerBase
 {
     private readonly ITodoService todoService;
-    public TodoController(ITodoService todoService)
-    {
-        this.todoService = todoService;
-    }
+    // public TodoController(ITodoService todoService)
+    // {
+    //     this.todoService = todoService;
+    // }
 
     [HttpGet("Get/{id}")]
     public ActionResult<Todo> GetSingle(int id)
