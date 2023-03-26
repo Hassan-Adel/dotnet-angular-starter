@@ -13,20 +13,20 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet("Get/{id}")]
-    public ActionResult<Todo> GetSingle(int id)
+    public async Task<ActionResult<ServiceResponse<Todo>>> GetSingle(int id)
     {
-        return Ok(todoService.GetTodo(id));
+        return Ok(await todoService.GetTodo(id));
     }
 
     [HttpGet("Get")]
-    public ActionResult<List<Todo>> Get()
+    public async Task<ActionResult<ServiceResponse<List<Todo>>>> Get()
     {
-        return Ok(todoService.GetAllTodos());
+        return Ok(await todoService.GetAllTodos());
     }
 
     [HttpPost]
-    public ActionResult<List<Todo>> CreateTodo(Todo todo)
+    public async Task<ActionResult<ServiceResponse<List<Todo>>>> CreateTodo(Todo todo)
     {
-        return Ok(todoService.CreateTodo(todo));
+        return Ok(await todoService.CreateTodo(todo));
     }
 }

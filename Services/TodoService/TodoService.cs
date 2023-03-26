@@ -8,25 +8,41 @@ public class TodoService : ITodoService
         new Todo(){Id = 1, Title = "test todo"}
     };
 
-    public Todo CreateTodo(Todo todo)
+    public async Task<ServiceResponse<Todo>> CreateTodo(Todo todo)
     {
         todos.Add(todo);
-        return todo;
+        var serviceResponse = new ServiceResponse<Todo>();
+        serviceResponse.Data = todo;
+        return serviceResponse;
     }
 
     public void DeleteTodo(int todoId)
     {
-        Todo todoToDelete = todos.FirstOrDefault(t => t.Id == todoId);
+        var todoToDelete = todos.FirstOrDefault(t => t.Id == todoId);
+
+        if(todoToDelete is null)
+            throw new Exception("Todo not found!");
+
         todos.Remove(todoToDelete);
     }
 
-    public List<Todo> GetAllTodos()
+    public async Task<ServiceResponse<List<Todo>>> GetAllTodos()
     {
-        return todos;
+        var serviceResponse = new ServiceResponse<List<Todo>>();
+        serviceResponse.Data = todos;
+        return serviceResponse;
     }
 
-    public Todo GetTodo(int todoId)
+    public async Task<ServiceResponse<Todo>> GetTodo(int todoId)
     {
-        return todos.FirstOrDefault(t => t.Id == todoId);
+        var serviceResponse = new ServiceResponse<Todo>();
+        Todo todo = todos.FirstOrDefault(t => t.Id == todoId)!;
+        serviceResponse.Data = todo;
+        if(todo is null) {
+            serviceResponse.Successful = false;
+            serviceResponse.Message = "Todo not found!";
+        }
+        
+        return serviceResponse;
     }
 }
