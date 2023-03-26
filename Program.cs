@@ -6,11 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-    {
-        c.DocumentFilter<LowerCaseDocumentFilter>();
-    });
-
+builder.Services.AddSwaggerGen(o =>
+{
+    o.DocumentFilter<LowerCaseDocumentFilter>();
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
