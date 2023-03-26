@@ -68,9 +68,7 @@ public class TodoService : ITodoService
                 throw new Exception($"Todo with Id '{updatedTodo.Id}' is not found!");
             }
 
-            todo.Title = updatedTodo.Title;
-            todo.Completed = updatedTodo.Completed;
-            todo.Type = updatedTodo.Type;
+            mapper.Map(updatedTodo, todo);
             var returnTodo = mapper.Map<GetTodoResponse>(todo);
             serviceResponse.Data = returnTodo;
         }

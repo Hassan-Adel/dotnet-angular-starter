@@ -7,5 +7,6 @@ public class AutoMapperProfile : Profile
         CreateMap<Todo, GetTodoResponse>();
 
         CreateMap<CreateTodoRequest, Todo>();
+        CreateMap<UpdateTodoRequest, Todo>();
     }
 }
