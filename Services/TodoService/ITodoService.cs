@@ -6,5 +6,5 @@ public interface ITodoService
     Task<ServiceResponse<GetTodoResponse>> GetTodo(int todoId);
     Task<ServiceResponse<GetTodoResponse>> CreateTodo(CreateTodoRequest todo);
     Task<ServiceResponse<GetTodoResponse>> UpdateTodo(UpdateTodoRequest todo);
-    void DeleteTodo(int todoId);
+    Task<ServiceResponse<string>> DeleteTodo(int todoId);
 }

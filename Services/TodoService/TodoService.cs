@@ -23,16 +23,26 @@ public class TodoService : ITodoService
         return serviceResponse;
     }
 
-    public void DeleteTodo(int todoId)
+    public async Task<ServiceResponse<string>> DeleteTodo(int todoId)
     {
-        var todoToDelete = todos.FirstOrDefault(t => t.Id == todoId);
-
-        if (todoToDelete is null)
+        var serviceResponse = new ServiceResponse<string>();
+        try
         {
-            throw new Exception("Todo not found!");
-        }
+            Todo todo = todos.FirstOrDefault(t => t.Id == todoId)!;
 
-        todos.Remove(todoToDelete);
+            if (todo is null)
+            {
+                throw new Exception($"Todo with Id '{todoId}' is not found!");
+            }
+            todos.Remove(todo);
+            serviceResponse.Data = $"Todo with Id '{todoId}' has been successfully delete!";
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Successful = false;
+            serviceResponse.Message = ex.Message;
+        }
+        return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<GetTodoResponse>>> GetAllTodos()

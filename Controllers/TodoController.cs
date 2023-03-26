@@ -41,4 +41,16 @@ public class TodoController : ControllerBase
 
         return Ok(response);
     }
+
+    [HttpDelete("Delete/{todoId}")]
+    public async Task<ActionResult<ServiceResponse<string>>> DeleteTodo(int todoId)
+    {
+        var response = await todoService.DeleteTodo(todoId).ConfigureAwait(false);
+        if (!response.Successful)
+        {
+            return NotFound(response);
+        }
+
+        return Ok(response);
+    }
 }
