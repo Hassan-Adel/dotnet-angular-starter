@@ -20,8 +20,10 @@ public class TodoService : ITodoService
     {
         var todoToDelete = todos.FirstOrDefault(t => t.Id == todoId);
 
-        if(todoToDelete is null)
+        if (todoToDelete is null)
+        {
             throw new Exception("Todo not found!");
+        }
 
         todos.Remove(todoToDelete);
     }
@@ -38,11 +40,12 @@ public class TodoService : ITodoService
         var serviceResponse = new ServiceResponse<Todo>();
         Todo todo = todos.FirstOrDefault(t => t.Id == todoId)!;
         serviceResponse.Data = todo;
-        if(todo is null) {
+        if (todo is null)
+        {
             serviceResponse.Successful = false;
             serviceResponse.Message = "Todo not found!";
         }
-        
+
         return serviceResponse;
     }
 }

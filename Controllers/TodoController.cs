@@ -15,18 +15,18 @@ public class TodoController : ControllerBase
     [HttpGet("Get/{id}")]
     public async Task<ActionResult<ServiceResponse<Todo>>> GetSingle(int id)
     {
-        return Ok(await todoService.GetTodo(id));
+        return Ok(await todoService.GetTodo(id).ConfigureAwait(false));
     }
 
     [HttpGet("Get")]
     public async Task<ActionResult<ServiceResponse<List<Todo>>>> Get()
     {
-        return Ok(await todoService.GetAllTodos());
+        return Ok(await todoService.GetAllTodos().ConfigureAwait(false));
     }
 
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<List<Todo>>>> CreateTodo(Todo todo)
     {
-        return Ok(await todoService.CreateTodo(todo));
+        return Ok(await todoService.CreateTodo(todo).ConfigureAwait(false));
     }
 }
