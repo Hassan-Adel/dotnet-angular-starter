@@ -6,28 +6,27 @@ namespace dotnet_angular_starter.Controllers;
 [Route("api/[controller]")]
 public class TodoController : ControllerBase
 {
-    private static readonly Todo todo = new Todo();
-    private static readonly List<Todo> todos = new List<Todo>{
-        todo,
-        new Todo(){Id = 1, Title = "test todo"}
-    };
+    private readonly ITodoService todoService;
+    public TodoController(ITodoService todoService)
+    {
+        this.todoService = todoService;
+    }
 
     [HttpGet("Get/{id}")]
     public ActionResult<Todo> GetSingle(int id)
     {
-        return Ok(todos.FirstOrDefault(t => t.Id == id));
+        return Ok(todoService.GetTodo(id));
     }
     
     [HttpGet("Get")]
     public ActionResult<List<Todo>> Get()
     {
-        return Ok(todos);
+        return Ok(todoService.GetAllTodos());
     }
 
     [HttpPost]
     public ActionResult<List<Todo>> CreateTodo(Todo todo)
     {
-        todos.Add(todo);
-        return Ok(todos);
+        return Ok(todoService.CreateTodo(todo));
     }
 }
