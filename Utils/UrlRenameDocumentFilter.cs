@@ -12,7 +12,7 @@ namespace dotnet_angular_starter.Utils
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             OpenApiPaths keyValuePairs = new OpenApiPaths();
-            foreach(var path in swaggerDoc.Paths)
+            foreach (var path in swaggerDoc.Paths)
             {
                 var value = path.Value;
 
