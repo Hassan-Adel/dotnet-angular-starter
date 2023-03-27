@@ -1,7 +1,9 @@
 global using AutoMapper;
+global using dotnet_angular_starter.Data;
 global using dotnet_angular_starter.Dtos.Todo;
 global using dotnet_angular_starter.Models;
 global using dotnet_angular_starter.Services.TodoService;
+global using Microsoft.EntityFrameworkCore;
 using dotnet_angular_starter.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddSwaggerGen(o =>
 {
     o.DocumentFilter<LowerCaseDocumentFilter>();
 });
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
