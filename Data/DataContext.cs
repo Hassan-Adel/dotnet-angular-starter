@@ -6,5 +6,5 @@ public class DataContext : DbContext
     {
 
     }
-    public DbSet<Todo> Todos => Set<Todo>();
+    public virtual DbSet<Todo> Todos => Set<Todo>();
 }
